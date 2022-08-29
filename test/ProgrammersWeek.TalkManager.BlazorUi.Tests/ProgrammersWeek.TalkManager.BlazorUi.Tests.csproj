@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\1-Blazor\ProgrammersWeek.TalkManager.BlazorUi\ProgrammersWeek.TalkManager.BlazorUi.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\2-Backend\ProgrammersWeek.TalkManager.WebApi\ProgrammersWeek.TalkManager.WebApi.csproj" />
+  </ItemGroup>
+
 </Project>

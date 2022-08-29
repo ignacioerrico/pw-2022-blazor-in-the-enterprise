@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\2-Backend\ProgrammersWeek.TalkManager.DataAccess\ProgrammersWeek.TalkManager.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

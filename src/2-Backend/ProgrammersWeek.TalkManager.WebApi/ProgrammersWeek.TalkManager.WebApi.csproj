@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProgrammersWeek.TalkManager.DataAccess\ProgrammersWeek.TalkManager.DataAccess.csproj" />
+    <ProjectReference Include="..\..\3-Shared\ProgrammersWeek.TalkManager.Shared\ProgrammersWeek.TalkManager.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
