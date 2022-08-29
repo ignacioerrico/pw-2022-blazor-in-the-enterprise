@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{683EEA04-9142-4B10-B0A5-C39402C8B18D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Blazor", "1-Blazor", "{0955E73A-363C-44B2-905C-546A5A8B8421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.BlazorWebAssemblyApp", "src\1-Blazor\ProgrammersWeek.TalkManager.BlazorWebAssemblyApp\ProgrammersWeek.TalkManager.BlazorWebAssemblyApp.csproj", "{658753F2-0AF4-4347-9427-A8A2E490EB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.BlazorServerApp", "src\1-Blazor\ProgrammersWeek.TalkManager.BlazorServerApp\ProgrammersWeek.TalkManager.BlazorServerApp.csproj", "{6FF101F4-8038-468C-A56D-4B975FABE2AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Backend", "2-Backend", "{301E38CA-2323-4CA1-9AB7-C6ABC2CA9A40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.WebApi", "src\2-Backend\ProgrammersWeek.TalkManager.WebApi\ProgrammersWeek.TalkManager.WebApi.csproj", "{C5B563CB-89B1-4B5F-A1DF-36B21B755F54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.DataAccess", "src\2-Backend\ProgrammersWeek.TalkManager.DataAccess\ProgrammersWeek.TalkManager.DataAccess.csproj", "{BE47D208-AEDE-49FD-898E-7D395CC837ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Shared", "3-Shared", "{52E3031A-CB93-487D-90A7-7D331FEE7EFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.Shared", "src\3-Shared\ProgrammersWeek.TalkManager.Shared\ProgrammersWeek.TalkManager.Shared.csproj", "{0310DE7E-E1B2-43C2-8712-223EBE196F46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB5F0B1C-9E74-42CD-80A3-35FB9808CBD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.WebApi.Tests", "test\ProgrammersWeek.TalkManager.WebApi.Tests\ProgrammersWeek.TalkManager.WebApi.Tests.csproj", "{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.DataAccess.Tests", "test\ProgrammersWeek.TalkManager.DataAccess.Tests\ProgrammersWeek.TalkManager.DataAccess.Tests.csproj", "{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.BlazorUi", "src\1-Blazor\ProgrammersWeek.TalkManager.BlazorUi\ProgrammersWeek.TalkManager.BlazorUi.csproj", "{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgrammersWeek.TalkManager.BlazorUi.Tests", "test\ProgrammersWeek.TalkManager.BlazorUi.Tests\ProgrammersWeek.TalkManager.BlazorUi.Tests.csproj", "{80A48312-CFB8-47E2-8ADE-0F9AB10B147F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{658753F2-0AF4-4347-9427-A8A2E490EB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{658753F2-0AF4-4347-9427-A8A2E490EB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{658753F2-0AF4-4347-9427-A8A2E490EB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{658753F2-0AF4-4347-9427-A8A2E490EB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF101F4-8038-468C-A56D-4B975FABE2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF101F4-8038-468C-A56D-4B975FABE2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF101F4-8038-468C-A56D-4B975FABE2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF101F4-8038-468C-A56D-4B975FABE2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B563CB-89B1-4B5F-A1DF-36B21B755F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B563CB-89B1-4B5F-A1DF-36B21B755F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B563CB-89B1-4B5F-A1DF-36B21B755F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B563CB-89B1-4B5F-A1DF-36B21B755F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE47D208-AEDE-49FD-898E-7D395CC837ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE47D208-AEDE-49FD-898E-7D395CC837ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE47D208-AEDE-49FD-898E-7D395CC837ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE47D208-AEDE-49FD-898E-7D395CC837ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0310DE7E-E1B2-43C2-8712-223EBE196F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0310DE7E-E1B2-43C2-8712-223EBE196F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0310DE7E-E1B2-43C2-8712-223EBE196F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0310DE7E-E1B2-43C2-8712-223EBE196F46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A48312-CFB8-47E2-8ADE-0F9AB10B147F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A48312-CFB8-47E2-8ADE-0F9AB10B147F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A48312-CFB8-47E2-8ADE-0F9AB10B147F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A48312-CFB8-47E2-8ADE-0F9AB10B147F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0955E73A-363C-44B2-905C-546A5A8B8421} = {683EEA04-9142-4B10-B0A5-C39402C8B18D}
+		{658753F2-0AF4-4347-9427-A8A2E490EB6F} = {0955E73A-363C-44B2-905C-546A5A8B8421}
+		{6FF101F4-8038-468C-A56D-4B975FABE2AD} = {0955E73A-363C-44B2-905C-546A5A8B8421}
+		{301E38CA-2323-4CA1-9AB7-C6ABC2CA9A40} = {683EEA04-9142-4B10-B0A5-C39402C8B18D}
+		{C5B563CB-89B1-4B5F-A1DF-36B21B755F54} = {301E38CA-2323-4CA1-9AB7-C6ABC2CA9A40}
+		{BE47D208-AEDE-49FD-898E-7D395CC837ED} = {301E38CA-2323-4CA1-9AB7-C6ABC2CA9A40}
+		{52E3031A-CB93-487D-90A7-7D331FEE7EFB} = {683EEA04-9142-4B10-B0A5-C39402C8B18D}
+		{0310DE7E-E1B2-43C2-8712-223EBE196F46} = {52E3031A-CB93-487D-90A7-7D331FEE7EFB}
+		{498D9D1C-230A-4FB9-9DBA-BB9EFBB42CF0} = {BB5F0B1C-9E74-42CD-80A3-35FB9808CBD7}
+		{D72FAA45-A4B7-4E25-A1D0-1879E1FA8839} = {BB5F0B1C-9E74-42CD-80A3-35FB9808CBD7}
+		{3A6AAFE8-1E2E-4DC7-BB43-01863DF3EC55} = {0955E73A-363C-44B2-905C-546A5A8B8421}
+		{80A48312-CFB8-47E2-8ADE-0F9AB10B147F} = {BB5F0B1C-9E74-42CD-80A3-35FB9808CBD7}
+	EndGlobalSection
+EndGlobal
