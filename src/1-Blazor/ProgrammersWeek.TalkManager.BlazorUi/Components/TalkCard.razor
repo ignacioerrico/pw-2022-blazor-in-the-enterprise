@@ -1,0 +1,57 @@
+﻿<MudCard Outlined="true" Class="mb-4">
+    @if (Talk is null)
+    {
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h4">Nothing to show here.</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+    }
+    else
+    {
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                @if (Talk.Authors.Count == 1)
+                {
+                    var author = Talk.Authors.Single();
+                    var picture = $"data:image/png;base64,{Convert.ToBase64String(author.Picture)}";
+                    <MudTooltip Text="@author.Name">
+                        <MudAvatar Image="@picture" Size="Size.Large" />
+                    </MudTooltip>
+                }
+                else
+                {
+                    <MudTooltip Text="@string.Join(", ", Talk.Authors.Select(a => a.Name))">
+                        <MudAvatarGroup Spacing="3">
+                        @foreach (var author in Talk.Authors)
+                        {
+                            var picture = $"data:image/png;base64,{Convert.ToBase64String(author.Picture)}";
+                                <MudAvatar Image="@picture" Size="Size.Large" />
+                        }
+                        </MudAvatarGroup>
+                    </MudTooltip>
+                }
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5">@Talk.Title</MudText>
+                <MudText Typo="Typo.subtitle1">@string.Join(", ", Talk.Authors.Select(a => a.Name))</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.PersonPin" Color="Color.Default"
+                               OnClick="@(_ => ShowSpeakersInfo(Talk.Authors))" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText Typo="Typo.button" Color="Color.Primary">@Talk.InterestArea</MudText>
+            <MudText Typo="Typo.body1">@Talk.Description</MudText>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Add" Class="mr-4">Attend</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Default" StartIcon="@Icons.Material.Filled.Share" Class="mr-4">Share</MudButton>
+            <MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Where?" Color="Color.Secondary" Class="mr-1" />
+            <MudText Typo="Typo.body1" Class="mr-4">@Talk.Region, @Talk.SessionType</MudText>
+            <MudIcon Icon="@Icons.Material.Filled.CalendarMonth" Title="When?" Color="Color.Primary" Class="mr-1" />
+            <MudText Typo="Typo.body1" Class="mr-4">@Talk.DateTimeUtc.ToLongDateString(), at @Talk.DateTimeUtc.ToShortTimeString() UTC</MudText>
+        </MudCardActions>
+    }
+</MudCard>

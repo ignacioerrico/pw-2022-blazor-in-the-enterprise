@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using ProgrammersWeek.TalkManager.DataAccess;
 using ProgrammersWeek.TalkManager.WebApi.Mappings;
 using ProgrammersWeek.TalkManager.WebApi.Services;
@@ -29,6 +30,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var allowedOrigins = builder.Configuration
+    .GetSection("CorsPolicy:AllowedOrigins")
+    .Get<string[]>();
+app.UseCors(policy =>
+    policy.WithOrigins(allowedOrigins)
+        .AllowAnyMethod()
+        .WithHeaders(HeaderNames.ContentType));
 
 app.UseAuthorization();
 

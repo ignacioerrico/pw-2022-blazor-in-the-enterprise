@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
+using ProgrammersWeek.TalkManager.BlazorUi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddMudServices();
+
+var webApiUrl = builder.Configuration.GetValue<string>("WebApiUrl");
+builder.Services.AddHttpClient<ITalkClientService, TalkClientService>(service =>
+    service.BaseAddress = new Uri(webApiUrl));
 
 var app = builder.Build();
 

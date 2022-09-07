@@ -1,0 +1,19 @@
+﻿<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.PersonPin" Color="Color.Primary" Class="mr-3 mb-n1" />
+            @AuthorsNames
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        @foreach (var author in Authors)
+        {
+            <MudText Typo="Typo.h6">@author.Name</MudText>
+            <MudText Typo="Typo.button">@author.Title</MudText>
+            <MudText Typo="Typo.body1" Class="mb-4">@author.Bio</MudText>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="@(() => MudDialog.Close())">Close</MudButton>
+    </DialogActions>
+</MudDialog>

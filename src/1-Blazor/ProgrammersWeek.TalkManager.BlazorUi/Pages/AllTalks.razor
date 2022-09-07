@@ -1,0 +1,15 @@
+﻿@page "/talks"
+
+@if (Talks is null)
+{
+    <MudText Typo="Typo.h4">@Message</MudText>
+}
+else
+{
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        @foreach (var talk in Talks)
+        {
+            <TalkCard Talk="@talk"></TalkCard>
+        }
+    </MudContainer>
+}
