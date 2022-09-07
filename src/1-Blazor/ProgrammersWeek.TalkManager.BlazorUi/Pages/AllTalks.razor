@@ -7,9 +7,8 @@
 else
 {
     <MudContainer MaxWidth="MaxWidth.Medium">
-        @foreach (var talk in Talks)
-        {
+        <MudVirtualize Items="Talks" Context="talk">
             <TalkCard Talk="@talk"></TalkCard>
-        }
+        </MudVirtualize>
     </MudContainer>
 }
