@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
@@ -11,9 +13,36 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddMudServices();
 
-var webApiUrl = builder.Configuration.GetValue<string>("WebApiUrl");
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<RefreshTokenService>();
+
+var webApiUrl = builder.Configuration.GetValue<string>("Urls:WebApi");
 builder.Services.AddHttpClient<ITalkClientService, TalkClientService>(service =>
     service.BaseAddress = new Uri(webApiUrl));
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme,
+        options =>
+        {
+            options.Authority = builder.Configuration.GetValue<string>("Urls:Authority");
+            options.ClientId = "talkmanagerblazorserver";
+            options.ClientSecret = "secret";
+            options.ResponseType = "code";
+            options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.Scope.Add("openid");
+            options.Scope.Add("profile");
+            options.Scope.Add("email");
+            options.Scope.Add("talkmanagerapi");
+            options.Scope.Add("offline_access"); // Get refresh token from Identity Server
+            options.TokenValidationParameters.NameClaimType = "given_name";
+            options.GetClaimsFromUserInfoEndpoint = true;
+            options.SaveTokens = true;
+        });
 
 var app = builder.Build();
 
@@ -30,6 +59,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

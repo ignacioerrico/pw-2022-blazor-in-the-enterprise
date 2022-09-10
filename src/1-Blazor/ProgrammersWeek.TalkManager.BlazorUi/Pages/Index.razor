@@ -1,7 +1,13 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Welcome</PageTitle>
 
-<MudText Typo="Typo.h2">Hello, world!</MudText>
+<MudText Typo="Typo.h4">Welcome to Programmers' Week 2022!</MudText>
 
-<MudText Typo="Typo.body1">Welcome to your new app.</MudText>
+<AuthorizeView>
+    <NotAuthorized>
+        <MudText Typo="Typo.h6">
+            Register in the event today to attend amazing tech talks!
+        </MudText>
+    </NotAuthorized>
+</AuthorizeView>

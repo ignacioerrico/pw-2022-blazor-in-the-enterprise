@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProgrammersWeek.TalkManager.Shared.Dto;
 using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
-using ProgrammersWeek.TalkManager.Shared.Models;
 using ProgrammersWeek.TalkManager.WebApi.Services;
 
 namespace ProgrammersWeek.TalkManager.WebApi.Controllers
 {
     [Route("api/talk")]
     [ApiController]
+    [Authorize]
     public class TalkController : ControllerBase
     {
         private readonly ITalkService _talkService;

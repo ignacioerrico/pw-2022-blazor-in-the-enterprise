@@ -1,5 +1,8 @@
 ﻿<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
-    <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">Counter</MudNavLink>
-    <MudNavLink Href="/talks" Match="NavLinkMatch.Prefix">Talks</MudNavLink>
+    <AuthorizeView>
+        <Authorized>
+            <MudNavLink Href="/talks" Match="NavLinkMatch.Prefix">Talks</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
 </MudNavMenu>

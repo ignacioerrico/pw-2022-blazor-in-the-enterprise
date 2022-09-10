@@ -1,8 +1,29 @@
 ﻿@page "/"
+@using System.Globalization
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using ProgrammersWeek.TalkManager.BlazorUi.Services
 @namespace ProgrammersWeek.TalkManager.BlazorServerApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @{
     Layout = "_Layout";
+    var httpContextToken = new TokenService
+    {
+        AntiForgeryToken = Antiforgery.GetAndStoreTokens(HttpContext).RequestToken,
+        AccessToken = await HttpContext.GetTokenAsync("access_token"),
+        RefreshToken = await HttpContext.GetTokenAsync("refresh_token")
+    };
+    var expiresAtString = await HttpContext.GetTokenAsync("expires_at");
+    
+    if (DateTimeOffset.TryParse(expiresAtString, CultureInfo.InvariantCulture, DateTimeStyles.None, out var expiresAt))
+    {
+        httpContextToken.ExpiresAt = expiresAt;
+    }
+    else
+    {
+        httpContextToken.ExpiresAt = DateTimeOffset.UtcNow;
+    }
 }
 
-<component type="typeof(BlazorUi.App)" render-mode="ServerPrerendered" />
+<component type="typeof(BlazorUi.App)" render-mode="ServerPrerendered" param-HttpContextToken="@httpContextToken" />

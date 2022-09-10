@@ -1,12 +1,19 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <MudText Typo="Typo.h4">You are not authorized to access this</MudText>
+                    <MudText Typo="Typo.body1">You are trying to access a page you are not authorized to access.</MudText>
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

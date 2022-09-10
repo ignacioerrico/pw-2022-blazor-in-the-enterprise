@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using ProgrammersWeek.TalkManager.BlazorUi.Services
+@inherits LayoutComponentBase
+@inject TokenService Token
 
 <PageTitle>Programmers' Week 2022</PageTitle>
 
@@ -14,7 +16,18 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Programmers' Week 2022</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+        <AuthorizeView>
+            <NotAuthorized>
+                <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Info">Log in</MudButton>
+            </NotAuthorized>
+            <Authorized>
+                <MudText Color="Color.Default" Class="mr-4">Hello, @context.User.Identity?.Name! <em>Nice to have you here!</em></MudText>
+                <form action="/logout" method="post">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
+                    <input type="hidden" name="__RequestVerificationToken" value="@Token.AntiForgeryToken"/>
+                </form>
+            </Authorized>
+        </AuthorizeView>
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />

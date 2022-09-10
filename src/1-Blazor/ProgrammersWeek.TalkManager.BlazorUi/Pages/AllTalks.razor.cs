@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using ProgrammersWeek.TalkManager.BlazorUi.Services;
 using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
 
 namespace ProgrammersWeek.TalkManager.BlazorUi.Pages
 {
+    [Authorize]
     public partial class AllTalks
     {
         [Inject]

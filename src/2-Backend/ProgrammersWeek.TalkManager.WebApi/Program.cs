@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using ProgrammersWeek.TalkManager.DataAccess;
 using ProgrammersWeek.TalkManager.WebApi.Mappings;
@@ -20,6 +21,26 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<ITalkService, TalkService>();
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = builder.Configuration.GetValue<string>("Urls:Authority");
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "talkmanagerapi");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,8 +60,9 @@ app.UseCors(policy =>
         .AllowAnyMethod()
         .WithHeaders(HeaderNames.ContentType));
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization("ApiScope");
 
 app.Run();
