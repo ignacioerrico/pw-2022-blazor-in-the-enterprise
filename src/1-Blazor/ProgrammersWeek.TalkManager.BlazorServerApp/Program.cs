@@ -5,6 +5,7 @@ using ProgrammersWeek.TalkManager.BlazorServerApp.Components;
 using ProgrammersWeek.TalkManager.BlazorServerApp.Services;
 using ProgrammersWeek.TalkManager.BlazorUi.Components;
 using ProgrammersWeek.TalkManager.BlazorUi.Interfaces;
+using ProgrammersWeek.TalkManager.BlazorUi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +17,12 @@ builder.Services.AddMudServices();
 
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<RefreshTokenService>();
+builder.Services.AddScoped<ITalkClientService, TalkClientService>();
 
 builder.Services.AddSingleton<LogOutButtonBase, LogOutButton>();
 
 var webApiUrl = builder.Configuration.GetValue<string>("Urls:WebApi");
-builder.Services.AddHttpClient<ITalkClientService, TalkClientService>(service =>
+builder.Services.AddHttpClient<ICallEndpoint, CallEndpoint>(service =>
     service.BaseAddress = new Uri(webApiUrl));
 
 builder.Services.AddAuthentication(options =>
