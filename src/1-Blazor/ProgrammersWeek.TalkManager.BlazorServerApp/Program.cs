@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using MudBlazor.Services;
-using ProgrammersWeek.TalkManager.BlazorUi.Services;
+using ProgrammersWeek.TalkManager.BlazorServerApp.Components;
+using ProgrammersWeek.TalkManager.BlazorServerApp.Services;
+using ProgrammersWeek.TalkManager.BlazorUi.Components;
+using ProgrammersWeek.TalkManager.BlazorUi.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddMudServices();
 
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<RefreshTokenService>();
+
+builder.Services.AddSingleton<LogOutButtonBase, LogOutButton>();
 
 var webApiUrl = builder.Configuration.GetValue<string>("Urls:WebApi");
 builder.Services.AddHttpClient<ITalkClientService, TalkClientService>(service =>
@@ -39,7 +42,6 @@ builder.Services.AddAuthentication(options =>
             options.Scope.Add("email");
             options.Scope.Add("talkmanagerapi");
             options.Scope.Add("offline_access"); // Get refresh token from Identity Server
-            options.TokenValidationParameters.NameClaimType = "given_name";
             options.GetClaimsFromUserInfoEndpoint = true;
             options.SaveTokens = true;
         });

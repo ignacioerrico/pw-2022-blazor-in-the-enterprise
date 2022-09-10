@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ProgrammersWeek.TalkManager.BlazorServerApp.Pages
+namespace ProgrammersWeek.TalkManager.BlazorServerApp.Pages.Authentication
 {
     public class LogoutModel : PageModel
     {

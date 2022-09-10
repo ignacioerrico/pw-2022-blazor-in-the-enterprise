@@ -1,0 +1,9 @@
+﻿@using MudBlazor
+@using ProgrammersWeek.TalkManager.BlazorServerApp.Services
+@inherits ProgrammersWeek.TalkManager.BlazorUi.Components.LogOutButtonBase
+@inject TokenService Token
+
+<form action="/authentication/logout" method="post">
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
+    <input type="hidden" name="__RequestVerificationToken" value="@Token.AntiForgeryToken"/>
+</form>

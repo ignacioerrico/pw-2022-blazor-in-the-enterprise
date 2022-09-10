@@ -1,6 +1,5 @@
-﻿@using ProgrammersWeek.TalkManager.BlazorUi.Services
-@inherits LayoutComponentBase
-@inject TokenService Token
+﻿@inherits LayoutComponentBase
+@inject LogOutButtonBase LogOutButton
 
 <PageTitle>Programmers' Week 2022</PageTitle>
 
@@ -18,14 +17,15 @@
         <MudSpacer />
         <AuthorizeView>
             <NotAuthorized>
-                <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Info">Log in</MudButton>
+                <MudButton Href="/authentication/login" Variant="Variant.Filled" Color="Color.Info">Log in</MudButton>
             </NotAuthorized>
             <Authorized>
-                <MudText Color="Color.Default" Class="mr-4">Hello, @context.User.Identity?.Name! <em>Nice to have you here!</em></MudText>
-                <form action="/logout" method="post">
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
-                    <input type="hidden" name="__RequestVerificationToken" value="@Token.AntiForgeryToken"/>
-                </form>
+                @{
+                    var givenName = context.User.Claims
+                        .FirstOrDefault(c => c.Type == IdentityModel.JwtClaimTypes.GivenName)?.Value ?? "there";
+                }
+                <MudText Color="Color.Default" Class="mr-4">Hello, @givenName! <em>Nice to have you here!</em></MudText>
+                <DynamicComponent Type="@LogOutButton.GetType()"/>
             </Authorized>
         </AuthorizeView>
     </MudAppBar>

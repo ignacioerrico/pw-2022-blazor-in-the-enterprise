@@ -52,13 +52,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Source: https://docs.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/additional-scenarios?view=aspnetcore-6.0#cross-origin-resource-sharing-cors
 var allowedOrigins = builder.Configuration
     .GetSection("CorsPolicy:AllowedOrigins")
     .Get<string[]>();
 app.UseCors(policy =>
     policy.WithOrigins(allowedOrigins)
         .AllowAnyMethod()
-        .WithHeaders(HeaderNames.ContentType));
+        .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header")
+        .AllowCredentials());
 
 app.UseAuthentication();
 app.UseAuthorization();

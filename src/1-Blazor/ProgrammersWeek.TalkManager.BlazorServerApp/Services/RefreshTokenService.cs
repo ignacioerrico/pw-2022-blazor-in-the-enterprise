@@ -1,6 +1,6 @@
 ﻿using IdentityModel.Client;
 
-namespace ProgrammersWeek.TalkManager.BlazorUi.Services
+namespace ProgrammersWeek.TalkManager.BlazorServerApp.Services
 {
     public class RefreshTokenService
     {

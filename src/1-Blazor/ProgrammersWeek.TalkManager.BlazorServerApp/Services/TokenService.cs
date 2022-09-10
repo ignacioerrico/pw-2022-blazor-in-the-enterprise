@@ -1,4 +1,4 @@
-﻿namespace ProgrammersWeek.TalkManager.BlazorUi.Services
+﻿namespace ProgrammersWeek.TalkManager.BlazorServerApp.Services
 {
     public class TokenService
     {

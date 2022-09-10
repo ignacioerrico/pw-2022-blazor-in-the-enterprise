@@ -2,7 +2,7 @@
 @using System.Globalization
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using ProgrammersWeek.TalkManager.BlazorUi.Services
+@using ProgrammersWeek.TalkManager.BlazorServerApp.Services
 @namespace ProgrammersWeek.TalkManager.BlazorServerApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
@@ -15,15 +15,11 @@
         RefreshToken = await HttpContext.GetTokenAsync("refresh_token")
     };
     var expiresAtString = await HttpContext.GetTokenAsync("expires_at");
-    
-    if (DateTimeOffset.TryParse(expiresAtString, CultureInfo.InvariantCulture, DateTimeStyles.None, out var expiresAt))
-    {
-        httpContextToken.ExpiresAt = expiresAt;
-    }
-    else
-    {
-        httpContextToken.ExpiresAt = DateTimeOffset.UtcNow;
-    }
+
+    httpContextToken.ExpiresAt =
+        DateTimeOffset.TryParse(expiresAtString, CultureInfo.InvariantCulture, DateTimeStyles.None, out var expiresAt)
+            ? expiresAt
+            : DateTimeOffset.UtcNow;
 }
 
-<component type="typeof(BlazorUi.App)" render-mode="ServerPrerendered" param-HttpContextToken="@httpContextToken" />
+<component type="typeof(App)" render-mode="ServerPrerendered" param-HttpContextToken="@httpContextToken" />

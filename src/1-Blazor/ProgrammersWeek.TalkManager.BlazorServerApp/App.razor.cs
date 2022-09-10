@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using ProgrammersWeek.TalkManager.BlazorUi.Services;
+using ProgrammersWeek.TalkManager.BlazorServerApp.Services;
 
-namespace ProgrammersWeek.TalkManager.BlazorUi
+namespace ProgrammersWeek.TalkManager.BlazorServerApp
 {
     public partial class App
     {

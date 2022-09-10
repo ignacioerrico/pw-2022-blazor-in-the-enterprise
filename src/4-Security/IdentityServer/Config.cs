@@ -34,6 +34,19 @@ public static class Config
                 RedirectUris = { "https://localhost:7125/signin-oidc" },
                 PostLogoutRedirectUris = { "https://localhost:7125/signout-oidc" },
                 AllowedScopes = { "openid", "profile", "email", "talkmanagerapi" }
+            },
+            new()
+            {
+                ClientId = "talkmanagerblazorwasm",
+                ClientName = "Talk Manager Blazor WebAssembly",
+                AllowedGrantTypes = GrantTypes.Code,
+                RequireConsent = false,
+                RequirePkce = true,
+                RequireClientSecret = false, // We can't store secrets in the client
+                RedirectUris = { "https://localhost:7230/authentication/login-callback" },
+                PostLogoutRedirectUris = { "https://localhost:7230/authentication/logout-callback" },
+                AllowedScopes = { "openid", "profile", "email", "talkmanagerapi" },
+                AllowedCorsOrigins = { "http://localhost:5229", "https://localhost:7230" }
             }
         };
 }
