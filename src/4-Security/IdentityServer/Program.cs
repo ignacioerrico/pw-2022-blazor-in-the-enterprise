@@ -1,4 +1,7 @@
-﻿using IdentityServer;
+using IdentityServer;
+using IdentityServer.Areas.Identity.Data;
+using IdentityServer.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -16,10 +19,20 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    var connectionString = builder.Configuration.GetConnectionString("IdentityServerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityServerDbContextConnection' not found.");
+
+    builder.Services.AddDbContext<IdentityServerDbContext>(options =>
+        options.UseSqlServer(connectionString));
+
+    builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<IdentityServerDbContext>();
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
-    
+
+    app.UseAuthentication();
+
     app.Run();
 }
 catch (Exception ex)
