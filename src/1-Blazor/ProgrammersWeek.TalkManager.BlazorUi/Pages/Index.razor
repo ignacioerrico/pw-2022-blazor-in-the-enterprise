@@ -2,12 +2,13 @@
 
 <PageTitle>Welcome</PageTitle>
 
-<MudText Typo="Typo.h4">Welcome to Programmers' Week 2022!</MudText>
+<MudText Typo="Typo.h4" Class="mb-8">Welcome to Programmers' Week 2022!</MudText>
 
 <AuthorizeView>
     <NotAuthorized>
         <MudText Typo="Typo.h6">
-            Register in the event today to attend amazing tech talks!
+            <MudLink Href="https://localhost:5001/Identity/Account/Register" Typo="Typo.inherit">Register in the event today</MudLink>
+            to attend amazing tech talks!
         </MudText>
     </NotAuthorized>
 </AuthorizeView>

@@ -1,7 +1,9 @@
 using Duende.IdentityServer;
 using IdentityServer.Areas.Identity.Data;
 using IdentityServer.Data;
+using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -13,12 +15,24 @@ internal static class HostingExtensions
     {
         builder.Services.AddRazorPages();
 
+        builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
         var connectionString = builder.Configuration.GetConnectionString("IdentityServerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityServerDbContextConnection' not found.");
 
         builder.Services.AddDbContext<IdentityServerDbContext>(options =>
             options.UseSqlServer(connectionString));
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                // **IMPORTANT**
+                // This is only for demo purposes!
+                // In a production environment you want to remove this!
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            })
             .AddEntityFrameworkStores<IdentityServerDbContext>()
             .AddDefaultTokenProviders(); // This is about tokens to reset passwords, for example, not about tokens like access tokens
 

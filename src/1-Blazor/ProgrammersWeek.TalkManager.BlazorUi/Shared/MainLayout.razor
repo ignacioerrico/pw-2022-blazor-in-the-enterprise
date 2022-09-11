@@ -17,12 +17,13 @@
         <MudSpacer />
         <AuthorizeView>
             <NotAuthorized>
-                <MudButton Href="/authentication/login" Variant="Variant.Filled" Color="Color.Info">Log in</MudButton>
+                <MudButton Href="/authentication/login" Variant="Variant.Filled" Color="Color.Info" Class="mr-4">Log in</MudButton>
+                <MudButton Href="https://localhost:5001/Identity/Account/Register" Variant="Variant.Filled" Color="Color.Success">Register</MudButton>
             </NotAuthorized>
             <Authorized>
                 @{
                     var givenName = context.User.Claims
-                        .FirstOrDefault(c => c.Type == IdentityModel.JwtClaimTypes.GivenName)?.Value ?? "there";
+                        .FirstOrDefault(c => c.Type == "name")?.Value ?? "there";
                 }
                 <MudText Color="Color.Default" Class="mr-4">Hello, @givenName! <em>Nice to have you here!</em></MudText>
                 <DynamicComponent Type="@LogOutButton.GetType()"/>
