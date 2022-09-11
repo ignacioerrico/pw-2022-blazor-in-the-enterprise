@@ -1,7 +1,6 @@
 ﻿using IdentityModel.Client;
 using ProgrammersWeek.TalkManager.BlazorUi.Services;
 using ProgrammersWeek.TalkManager.Shared.Dto;
-using System.Text.Json;
 
 namespace ProgrammersWeek.TalkManager.BlazorServerApp.Services
 {
@@ -9,23 +8,30 @@ namespace ProgrammersWeek.TalkManager.BlazorServerApp.Services
     {
         private readonly HttpClient _httpClient;
         private readonly RefreshTokenService _refreshTokenService;
-        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         public CallEndpoint(HttpClient httpClient, RefreshTokenService refreshTokenService)
         {
             _httpClient = httpClient;
             _refreshTokenService = refreshTokenService;
-            _jsonSerializerOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
         }
 
         public async Task<ServiceResponse<T>?> HttpGetAsync<T>(string requestUri)
         {
             _httpClient.SetBearerToken(await _refreshTokenService.RetrieveAccessTokenAsync());
-            var stream = await _httpClient.GetStreamAsync(requestUri);
-            var response = await JsonSerializer.DeserializeAsync<ServiceResponse<T>>(stream, _jsonSerializerOptions);
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<T>>(requestUri);
+            return result;
+        }
+
+        public async Task<ServiceResponse<T>?> HttpPostAsync<T, TPayload>(string requestUri, TPayload payload)
+        {
+            _httpClient.SetBearerToken(await _refreshTokenService.RetrieveAccessTokenAsync());
+            var httpResponseMessage = await _httpClient.PostAsJsonAsync(requestUri, payload);
+            if (httpResponseMessage is null)
+            {
+                return default;
+            }
+
+            var response = await httpResponseMessage.Content.ReadFromJsonAsync<ServiceResponse<T>>();
             return response;
         }
     }

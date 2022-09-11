@@ -16,6 +16,8 @@ public class DataContext : DbContext
     public DbSet<InterestArea> InterestAreas { get; set; }
     public DbSet<Region> Regions { get; set; }
 
+    public DbSet<Attendance> Attendances { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Seed many-to-many relationship
@@ -88,6 +90,9 @@ public class DataContext : DbContext
         modelBuilder.Entity<Region>()
             .HasMany(r => r.Talks)
             .WithOne(t => t.Region);
+
+        modelBuilder.Entity<Attendance>()
+            .HasOne(a => a.Talk);
 
         modelBuilder.Entity<Talk>()
             .HasData(StaticTalks.GetList());

@@ -23,7 +23,7 @@
             <Authorized>
                 @{
                     var givenName = context.User.Claims
-                        .FirstOrDefault(c => c.Type == "name")?.Value ?? "there";
+                        .FirstOrDefault(c => c.Type == IdentityModel.JwtClaimTypes.Name)?.Value ?? "there";
                 }
                 <MudText Color="Color.Default" Class="mr-4">Hello, @givenName! <em>Nice to have you here!</em></MudText>
                 <DynamicComponent Type="@LogOutButton.GetType()"/>

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using ProgrammersWeek.TalkManager.Shared.Dto.Requests;
 using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
 using ProgrammersWeek.TalkManager.Shared.Models;
 
@@ -30,6 +31,11 @@ namespace ProgrammersWeek.TalkManager.WebApi.Mappings
                 .MapWith(st => st == SessionType.Online ? "Online" :
                     st == SessionType.Onsite ? "On site" :
                     st == SessionType.Client ? "Client presentation" : "Other");
+
+            TypeAdapterConfig<AttendanceRequest, Attendance>
+                .NewConfig()
+                .Map(dest => dest.ParticipantId, src => src.ParticipantId)
+                .Map(dest => dest.TalkId, src => src.TalkId);
         }
     }
 }

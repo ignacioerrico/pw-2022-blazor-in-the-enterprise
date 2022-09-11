@@ -1,4 +1,4 @@
-﻿<MudCard Outlined="true" Class="mb-4">
+﻿<MudCard Outlined="true" Class="mb-8">
     @if (Talk is null)
     {
         <MudCardHeader>
@@ -46,7 +46,23 @@
             <MudText Typo="Typo.body1">@Talk.Description</MudText>
         </MudCardContent>
         <MudCardActions>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Add" Class="mr-4">Attend</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mr-4"
+                       Disabled="@IsAttending"
+                       OnClick="@(() => AttendTalkWithId(Talk.Id))">
+                @if (IsAttending)
+                {
+                    if(!RegisteredCompleted)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    }
+
+                    <MudText>Attending</MudText>
+                }
+                else
+                {
+                    <MudText>Attend</MudText>
+                }
+            </MudButton>
             <MudButton Variant="Variant.Filled" Color="Color.Default" StartIcon="@Icons.Material.Filled.Share" Class="mr-4">Share</MudButton>
             <MudIcon Icon="@Icons.Material.Filled.LocationOn" Title="Where?" Color="Color.Secondary" Class="mr-1" />
             <MudText Typo="Typo.body1" Class="mr-4">@Talk.Region, @Talk.SessionType</MudText>

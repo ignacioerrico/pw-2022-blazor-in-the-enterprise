@@ -22,6 +22,7 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<RefreshTokenService>();
 builder.Services.AddScoped<ITalkClientService, TalkClientService>();
+builder.Services.AddScoped<IAttendanceClientService, AttendanceClientService>();
 
 builder.Services.AddSingleton<LogOutButtonBase, LogOutButton>();
 

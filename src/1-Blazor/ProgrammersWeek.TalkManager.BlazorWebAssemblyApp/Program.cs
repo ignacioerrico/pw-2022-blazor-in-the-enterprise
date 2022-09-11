@@ -19,6 +19,7 @@ builder.Services.AddSingleton<LogOutButtonBase, LogOutButton>();
 
 builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 builder.Services.AddScoped<ITalkClientService, TalkClientService>();
+builder.Services.AddScoped<IAttendanceClientService, AttendanceClientService>();
 
 var webApiUrl = builder.Configuration.GetValue<string>("WebApiUrl");
 builder.Services.AddHttpClient<ICallEndpoint, CallEndpoint>(service =>
