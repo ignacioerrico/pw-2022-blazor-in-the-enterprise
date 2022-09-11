@@ -1,10 +1,14 @@
 using Duende.IdentityServer;
+using Duende.IdentityServer.AspNetIdentity;
+using Duende.IdentityServer.Services;
 using IdentityServer.Areas.Identity.Data;
 using IdentityServer.Data;
 using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using ProgrammersWeek.TalkManager.Shared.Authorization;
+using ProgrammersWeek.TalkManager.Shared.Identity;
 using Serilog;
 
 namespace IdentityServer;
@@ -33,6 +37,7 @@ internal static class HostingExtensions
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<IdentityServerDbContext>()
             .AddDefaultTokenProviders(); // This is about tokens to reset passwords, for example, not about tokens like access tokens
 
@@ -100,5 +105,42 @@ internal static class HostingExtensions
             .RequireAuthorization();
 
         return app;
+    }
+
+    public static async Task CreateRolesAndAdminAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        foreach (var roleName in Roles.AllRoles)
+        {
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (roleExist) continue;
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+
+        const string adminName = "admin@email.com";
+
+        var poweruser = new ApplicationUser
+        {
+            UserName = adminName,
+            Email = adminName,
+        };
+
+        // **IMPORTANT**
+        // This should be at least in User Secrets - for demo purposes, you know :-)
+        string userPWD = "admin";
+
+        var dbPowerUser = await userManager.FindByEmailAsync(adminName);
+
+        if (dbPowerUser is null)
+        {
+            var createPowerUser = await userManager.CreateAsync(poweruser, userPWD);
+            if (createPowerUser.Succeeded)
+            {
+                await userManager.AddToRoleAsync(poweruser, Roles.Admin);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using MudBlazor.Services;
@@ -6,6 +7,9 @@ using ProgrammersWeek.TalkManager.BlazorServerApp.Services;
 using ProgrammersWeek.TalkManager.BlazorUi.Components;
 using ProgrammersWeek.TalkManager.BlazorUi.Interfaces;
 using ProgrammersWeek.TalkManager.BlazorUi.Services;
+using ProgrammersWeek.TalkManager.Shared.Authorization;
+using ProgrammersWeek.TalkManager.Shared.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +28,8 @@ builder.Services.AddSingleton<LogOutButtonBase, LogOutButton>();
 var webApiUrl = builder.Configuration.GetValue<string>("Urls:WebApi");
 builder.Services.AddHttpClient<ICallEndpoint, CallEndpoint>(service =>
     service.BaseAddress = new Uri(webApiUrl));
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -46,7 +52,13 @@ builder.Services.AddAuthentication(options =>
             options.Scope.Add("offline_access"); // Get refresh token from Identity Server
             options.GetClaimsFromUserInfoEndpoint = true;
             options.SaveTokens = true;
+            options.Scope.Add("roles");
+            options.ClaimActions.MapJsonKey("role", "role", "role");
+            options.TokenValidationParameters.RoleClaimType = "role";
         });
+
+builder.Services.AddAuthorizationCore(options =>
+    options.AddPolicy(CustomPolicy.Admin, policy => policy.RequireClaim("role", Roles.Admin)));
 
 var app = builder.Build();
 

@@ -1,8 +1,14 @@
-﻿<MudNavMenu>
+﻿@using ProgrammersWeek.TalkManager.Shared.Identity
+
+<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
     <AuthorizeView>
         <Authorized>
             <MudNavLink Href="/talks" Match="NavLinkMatch.Prefix">Talks</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin">
+        <Authorized>
             <MudNavLink Href="/claims" Match="NavLinkMatch.Prefix">Claims</MudNavLink>
         </Authorized>
     </AuthorizeView>

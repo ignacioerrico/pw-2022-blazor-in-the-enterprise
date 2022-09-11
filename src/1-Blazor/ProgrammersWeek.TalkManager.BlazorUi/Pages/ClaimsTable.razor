@@ -1,4 +1,6 @@
 ﻿@page "/claims"
+@using ProgrammersWeek.TalkManager.Shared.Authorization
+@attribute [Authorize(Policy = CustomPolicy.Admin)]
 
 <MudText Typo="Typo.h4" Class="mb-8">User Claims</MudText>
 

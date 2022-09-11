@@ -9,7 +9,8 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResources.Email()
+            new IdentityResources.Email(),
+            new IdentityResource("roles", new[] { "role" })
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -33,7 +34,7 @@ public static class Config
                 ClientSecrets = { new("secret".Sha256()) },
                 RedirectUris = { "https://localhost:7125/signin-oidc" },
                 PostLogoutRedirectUris = { "https://localhost:7125/signout-oidc" },
-                AllowedScopes = { "openid", "profile", "email", "talkmanagerapi" }
+                AllowedScopes = { "openid", "profile", "email", "talkmanagerapi", "roles" }
             },
             new()
             {
@@ -45,7 +46,7 @@ public static class Config
                 RequireClientSecret = false, // We can't store secrets in the client
                 RedirectUris = { "https://localhost:7230/authentication/login-callback" },
                 PostLogoutRedirectUris = { "https://localhost:7230/authentication/logout-callback" },
-                AllowedScopes = { "openid", "profile", "email", "talkmanagerapi" },
+                AllowedScopes = { "openid", "profile", "email", "talkmanagerapi", "roles" },
                 AllowedCorsOrigins = { "http://localhost:5229", "https://localhost:7230" }
             }
         };

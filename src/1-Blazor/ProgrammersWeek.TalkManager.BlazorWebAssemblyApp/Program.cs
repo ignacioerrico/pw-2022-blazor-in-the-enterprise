@@ -8,6 +8,8 @@ using ProgrammersWeek.TalkManager.BlazorUi.Services;
 using ProgrammersWeek.TalkManager.BlazorWebAssemblyApp;
 using ProgrammersWeek.TalkManager.BlazorWebAssemblyApp.Components;
 using ProgrammersWeek.TalkManager.BlazorWebAssemblyApp.MessageHandlers;
+using ProgrammersWeek.TalkManager.Shared.Authorization;
+using ProgrammersWeek.TalkManager.Shared.Identity;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -29,5 +31,8 @@ builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("Local", options.ProviderOptions);
 });
+
+builder.Services.AddAuthorizationCore(options =>
+    options.AddPolicy(CustomPolicy.Admin, policy => policy.RequireClaim("role", Roles.Admin)));
 
 await builder.Build().RunAsync();

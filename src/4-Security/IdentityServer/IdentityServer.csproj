@@ -26,6 +26,10 @@
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\3-Shared\ProgrammersWeek.TalkManager.Shared\ProgrammersWeek.TalkManager.Shared.csproj" />
+  </ItemGroup>
+
  
 
 </Project>

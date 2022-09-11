@@ -21,6 +21,8 @@ try
         .ConfigurePipeline();
 
     app.UseAuthentication();
+    
+    await app.CreateRolesAndAdminAsync();
 
     app.Run();
 }
