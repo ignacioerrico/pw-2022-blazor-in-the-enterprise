@@ -1,6 +1,8 @@
 using Duende.IdentityServer;
-using IdentityServer;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using IdentityServer.Areas.Identity.Data;
+using IdentityServer.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace IdentityServer;
@@ -10,6 +12,15 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddRazorPages();
+
+        var connectionString = builder.Configuration.GetConnectionString("IdentityServerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityServerDbContextConnection' not found.");
+
+        builder.Services.AddDbContext<IdentityServerDbContext>(options =>
+            options.UseSqlServer(connectionString));
+
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityServerDbContext>()
+            .AddDefaultTokenProviders(); // This is about tokens to reset passwords, for example, not about tokens like access tokens
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
             {
@@ -21,7 +32,7 @@ internal static class HostingExtensions
                 // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                 options.EmitStaticAudienceClaim = true;
             })
-            .AddTestUsers(TestUsers.Users);
+            .AddAspNetIdentity<ApplicationUser>();
 
         // in-memory, code config
         isBuilder.AddInMemoryIdentityResources(Config.IdentityResources);
@@ -56,11 +67,11 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
-    
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -70,7 +81,7 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 
