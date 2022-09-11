@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProgrammersWeek.TalkManager.Shared.Dto;
 using ProgrammersWeek.TalkManager.Shared.Dto.Requests;
+using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
 using ProgrammersWeek.TalkManager.WebApi.Services;
 
 namespace ProgrammersWeek.TalkManager.WebApi.Controllers
@@ -26,6 +27,18 @@ namespace ProgrammersWeek.TalkManager.WebApi.Controllers
             var response = new ServiceResponse<List<int>>
             {
                 Response = talkIds
+            };
+            return Ok(response);
+        }
+
+        [HttpGet("my-talks/{participantId}")]
+        [ProducesResponseType(typeof(ServiceResponse<List<MyTalkResponse>>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTalksForAsync(string participantId)
+        {
+            var myTalks = await _attendanceService.GetTalksForAsync(participantId);
+            var response = new ServiceResponse<List<MyTalkResponse>>
+            {
+                Response = myTalks
             };
             return Ok(response);
         }

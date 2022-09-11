@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProgrammersWeek.TalkManager.DataAccess;
 using ProgrammersWeek.TalkManager.Shared.Dto.Requests;
+using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
 using ProgrammersWeek.TalkManager.Shared.Models;
 
 namespace ProgrammersWeek.TalkManager.WebApi.Services
@@ -9,6 +10,7 @@ namespace ProgrammersWeek.TalkManager.WebApi.Services
     public interface IAttendanceService
     {
         Task<List<int>?> GetTalkIdsForAsync(string participantId);
+        Task<List<MyTalkResponse>?> GetTalksForAsync(string participantId);
         Task<int> RegisterParticipantAsync(AttendanceRequest attendance);
     }
 
@@ -29,6 +31,19 @@ namespace ProgrammersWeek.TalkManager.WebApi.Services
                 .ToListAsync();
 
             return talkIds;
+        }
+
+        public async Task<List<MyTalkResponse>?> GetTalksForAsync(string participantId)
+        {
+            var attendances = await _dbContext.Attendances
+                .Include(a => a.Talk).ThenInclude(t => t.Authors)
+                .Include(t => t.Talk).ThenInclude(t => t.InterestArea)
+                .Include(t => t.Talk).ThenInclude(t => t.Region)
+                .Where(a => a.ParticipantId == participantId)
+                .ToListAsync();
+
+            var myTalkResponses = attendances.Adapt<List<MyTalkResponse>>();
+            return myTalkResponses;
         }
 
         public async Task<int> RegisterParticipantAsync(AttendanceRequest attendanceRequest)

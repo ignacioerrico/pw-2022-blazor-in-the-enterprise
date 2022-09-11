@@ -7,5 +7,6 @@
 
         public static string AttendanceRequest = "api/attendance";
         public static string GetTalkIdsForAsync(string participantId) => $"api/attendance/talk-ids/{participantId}";
+        public static string GetTalksForAsync(string participantId) => $"api/attendance/my-talks/{participantId}";
     }
 }

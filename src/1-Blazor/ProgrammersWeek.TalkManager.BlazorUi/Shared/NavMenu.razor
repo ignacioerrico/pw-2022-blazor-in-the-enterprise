@@ -4,7 +4,8 @@
     <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
     <AuthorizeView>
         <Authorized>
-            <MudNavLink Href="/talks" Match="NavLinkMatch.Prefix">Talks</MudNavLink>
+            <MudNavLink Href="/talks" Match="NavLinkMatch.Prefix">All Talks</MudNavLink>
+            <MudNavLink Href="/my-talks" Match="NavLinkMatch.Prefix">My Talks</MudNavLink>
         </Authorized>
     </AuthorizeView>
     <AuthorizeView Policy="Admin">

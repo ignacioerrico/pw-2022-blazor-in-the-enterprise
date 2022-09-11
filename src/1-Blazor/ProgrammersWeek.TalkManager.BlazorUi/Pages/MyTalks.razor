@@ -1,0 +1,19 @@
+﻿@page "/my-talks"
+
+@if (Talks is null)
+{
+    <MudText Typo="Typo.h4">Loading your talks...</MudText>
+}
+else
+{
+    @foreach (var talk in Talks)
+    {
+        <MudPaper Elevation="5" Class="mb-8 pa-4">
+            <MudText Typo="Typo.h5">@talk.Title</MudText>
+            <MudText Typo="Typo.body1">@(string.Join(", ", talk.Authors))</MudText>
+            <MudText Typo="Typo.body2">@talk.DateTimeUtc.ToLongDateString(), at @talk.DateTimeUtc.ToLongTimeString()</MudText>
+            <MudText Typo="Typo.body2">@talk.InterestArea</MudText>
+            <MudText Typo="Typo.body2">@talk.Region</MudText>
+        </MudPaper>
+    }
+}

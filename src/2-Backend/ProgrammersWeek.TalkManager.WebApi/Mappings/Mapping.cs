@@ -36,6 +36,14 @@ namespace ProgrammersWeek.TalkManager.WebApi.Mappings
                 .NewConfig()
                 .Map(dest => dest.ParticipantId, src => src.ParticipantId)
                 .Map(dest => dest.TalkId, src => src.TalkId);
+
+            TypeAdapterConfig<Attendance, MyTalkResponse>
+                .NewConfig()
+                .Map(dest => dest.Title, src => src.Talk.Title)
+                .Map(dest => dest.DateTimeUtc, src => src.Talk.DateTimeUtc)
+                .Map(dest => dest.Authors, src => src.Talk.Authors.Select(a => a.Name))
+                .Map(dest => dest.InterestArea, src => src.Talk.InterestArea.Name)
+                .Map(dest => dest.Region, src => src.Talk.Region.Name);
         }
     }
 }

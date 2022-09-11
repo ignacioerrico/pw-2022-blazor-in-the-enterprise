@@ -1,6 +1,7 @@
 ﻿using ProgrammersWeek.TalkManager.BlazorUi.Interfaces;
 using ProgrammersWeek.TalkManager.Shared.Dto;
 using ProgrammersWeek.TalkManager.Shared.Dto.Requests;
+using ProgrammersWeek.TalkManager.Shared.Dto.Responses;
 using ProgrammersWeek.TalkManager.Shared.Services;
 
 namespace ProgrammersWeek.TalkManager.BlazorUi.Services
@@ -17,6 +18,12 @@ namespace ProgrammersWeek.TalkManager.BlazorUi.Services
         public async Task<ServiceResponse<List<int>>?> GetTalkIdsForAsync(string participantId)
         {
             var response = await _callEndpoint.HttpGetAsync<List<int>>(ServiceEndpoints.GetTalkIdsForAsync(participantId));
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<MyTalkResponse>>?> GetTalksForAsync(string participantId)
+        {
+            var response = await _callEndpoint.HttpGetAsync<List<MyTalkResponse>>(ServiceEndpoints.GetTalksForAsync(participantId));
             return response;
         }
 
